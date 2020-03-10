@@ -25,7 +25,7 @@ benchmark_name = "huffman"
 files_to_copy = ["./src/huffman_encoding.cpp", "./src/huffman_filter.cpp", "./src/huffman_sort.cpp", 
                  "./src/huffman_create_tree.cpp", "./src/huffman_compute_bit_length.cpp", "./src/huffman_truncate_tree.cpp", 
                  "./src/huffman_canonize_tree.cpp", "./src/huffman_create_codeword.cpp", "./src/huffman.random256.txt",
-                 "./src/huffman.random256.golden", "./src/huffman_encoding_test.cpp"]
+                 "./src/huffman.random256.golden", "./src/huffman_encoding_test.cpp", "./src/huffman.h"]
 
 run_place_route = False
 
