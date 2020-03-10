@@ -17,7 +17,7 @@ PRAGMA_HLS(HLS unroll factor=copy1)
  move_nodes:
     for(int i = TREE_DEPTH - 1; i > MAX_CODEWORD_LENGTH; i--) {
 
-PRAGMA_HLS(HLS unroll factor=move_nodes)
+PRAGMA_HLS(HLS unroll factor=movenodes)
         // Look to see if there is any nodes at lengths greater than target depth
     reorder:
         while(output_length_histogram1[i] != 0) {

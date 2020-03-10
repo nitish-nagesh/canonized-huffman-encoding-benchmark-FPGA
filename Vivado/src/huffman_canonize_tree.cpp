@@ -20,7 +20,7 @@ PRAGMA_HLS(HLS unroll factor=copy0)
     // Assign them largest bit length to smallest
  process_symbols:
     for(int k = 0; k < num_symbols; k++) {
- PRAGMA_HLS(HLS unroll factor=process_symbols)
+ PRAGMA_HLS(HLS unroll factor=processsymbols)
 
 //#pragma HLS LOOP_TRIPCOUNT min=256 max=256
         if (count == 0) {

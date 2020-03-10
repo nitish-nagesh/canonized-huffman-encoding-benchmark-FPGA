@@ -25,7 +25,7 @@ PRAGMA_HLS(HLS array_partition variable=first_codeword factor=copy1 cyclic)
  assign_codewords:
   for (int i = 0; i < INPUT_SYMBOL_SIZE; ++i) {
 #pragma HLS PIPELINE II=5
-PRAGMA_HLS(HLS unroll factor=assign_codeword)
+PRAGMA_HLS(HLS unroll factor=assigncodeword)
 
       CodewordLength length = symbol_bits[i];
       //if symbol has 0 bits, it doesn't need to be encoded
