@@ -19,11 +19,9 @@ void sort(
  copy_in_to_sorting:
     for(int j = 0; j < num_symbols; j++) {
 #pragma HLS PIPELINE II=1
-//#pragma HLS LOOP_TRIPCOUNT min=num_symbols max=num_symbols
 #pragma HLS LOOP_TRIPCOUNT min=2 max=INPUT_SYMBOL_SIZE
-#pragma HLS UNROLL factor=2
-#pragma HLS ARRAY_PARTITION variable=sorting cyclic factor=2
-#pragma HLS ARRAY_PARTITION variable=in cyclic factor=2
+PRAGMA_HLS (HLS unroll factor=copy1)
+PRAGMA_HLS(HLS array_partition variable=sorting factor=copy1 cyclic)
         sorting[j] = in[j];
 
     }
@@ -32,18 +30,20 @@ void sort(
     for(int shift = 0; shift < 32; shift += BITS_PER_LOOP) {
     init_histogram:
         for(int i = 0; i < RADIX; i++) {
-//#pragma HLS pipeline II=1
-#pragma HLS UNROLL
+#pragma HLS pipeline II=1
+PRAGMA_HLS (HLS unroll factor=copy0)
+
             digit_histogram[i] = 0;
         }
 
     compute_histogram:
         for(int j = 0; j < num_symbols; j++) {
 #pragma HLS PIPELINE II=1
-//#pragma HLS LOOP_TRIPCOUNT min=num_symbols max=num_symbols
 #pragma HLS LOOP_TRIPCOUNT min=2 max=INPUT_SYMBOL_SIZE
-#pragma HLS UNROLL factor=2
-#pragma HLS ARRAY_PARTITION variable=previous_sorting cyclic factor=2
+
+PRAGMA_HLS (HLS unroll factor=compute_histogram)
+PRAGMA_HLS(HLS array_partition variable=previous_sorting factor=compute_histogram_partition cyclic)
+PRAGMA_HLS(HLS array_partition variable=current_digit factor=compute_histogram_partition cyclic)
 
             Digit digit = (sorting[j].frequency >> shift) & (RADIX - 1); // Extrract a digit
             current_digit[j] = digit;  // Store the current digit for each symbol
@@ -54,17 +54,17 @@ void sort(
         digit_location[0] = 0;
     find_digit_location:
         for(int i = 1; i < RADIX; i++)
-//#pragma HLS PIPELINE II=1
-#pragma HLS UNROLL
+#pragma HLS PIPELINE II=1
+
+PRAGMA_HLS (HLS unroll factor=copy1)
             digit_location[i] = digit_location[i-1] + digit_histogram[i-1];
 
     re_sort:
         for(int j = 0; j < num_symbols; j++) {
 #pragma HLS PIPELINE II=1
-//#pragma HLS LOOP_TRIPCOUNT min=num_symbols max=num_symbols
 #pragma HLS LOOP_TRIPCOUNT min=2 max=INPUT_SYMBOL_SIZE
-#pragma HLS UNROLL factor=2
-#pragma HLS ARRAY_PARTITION variable=out cyclic factor=2
+PRAGMA_HLS (HLS unroll factor=re_sort)
+
             Digit digit = current_digit[j];
             sorting[digit_location[digit]] = previous_sorting[j]; // Move symbol to new sorted location
             out[digit_location[digit]] = previous_sorting[j]; // Also copy to output

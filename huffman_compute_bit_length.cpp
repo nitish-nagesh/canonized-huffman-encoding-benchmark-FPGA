@@ -13,9 +13,10 @@ void compute_bit_length (
  init_histogram:
     for(int i = 0; i < TREE_DEPTH; i++) {
         #pragma HLS pipeline II=1
-#pragma HLS UNROLL factor=4
-#pragma HLS ARRAY_PARTITION variable=internal_length_histogram cyclic factor=4
-#pragma HLS ARRAY_PARTITION variable=length_histogram cyclic factor=4
+PRAGMA_HLS (HLS unroll factor=copy0)
+PRAGMA_HLS(HLS array_partition variable=internal_length_histogram factor=copy0 cyclic)
+
+
         internal_length_histogram[i] = 0;
         length_histogram[i] = 0;
     }
@@ -25,12 +26,8 @@ void compute_bit_length (
 traverse_tree:
     for(int i = num_symbols-3; i >= 0; i--) {
 #pragma HLS pipeline II=3
-//#pragma HLS LOOP_TRIPCOUNT min=num_symbols-2 max=num_symbols-2
 #pragma HLS LOOP_TRIPCOUNT min=1 max=INPUT_SYMBOL_SIZE-2
-#pragma HLS UNROLL factor=4
-#pragma HLS ARRAY_PARTITION variable=left cyclic factor=4
-#pragma HLS ARRAY_PARTITION variable=right cyclic factor=4
-#pragma HLS ARRAY_PARTITION variable=parent cyclic factor=4
+
         ap_uint<TREE_DEPTH_BITS> length = child_depth[parent[i]] + 1;
         child_depth[i] = length;
         if(left[i] != INTERNAL_NODE || right[i] != INTERNAL_NODE){

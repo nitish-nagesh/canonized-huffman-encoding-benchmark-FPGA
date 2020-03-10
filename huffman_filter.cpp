@@ -1,4 +1,5 @@
 #include "huffman.h"
+#include "huffman_params.h"
 // Postcondition: out[x].frequency > 0
 void filter(
             /* input  */ Symbol in[INPUT_SYMBOL_SIZE],
@@ -8,9 +9,9 @@ void filter(
     ap_uint<SYMBOL_BITS> j = 0;
     for(int i = 0; i < INPUT_SYMBOL_SIZE; i++) {
 #pragma HLS pipeline II=1
-//#pragma HLS UNROLL factor=2 skip_exit_check
-//#pragma HLS ARRAY_PARTITION variable=in factor=2 cyclic
-//#pragma HLS ARRAY_PARTITION variable=out factor=2 cyclic
+PRAGMA_HLS (HLS unroll factor=filter)
+PRAGMA_HLS(HLS array_partition variable=in factor=filter_parition cyclic)
+PRAGMA_HLS(HLS array_partition variable=out factor=filter_partition cyclic)
         if(in[i].frequency != 0) {
             out[j].frequency = in[i].frequency;
             out[j].value = in[i].value;

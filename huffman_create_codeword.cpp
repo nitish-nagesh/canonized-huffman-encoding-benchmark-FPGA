@@ -13,20 +13,20 @@ void create_codeword(
  first_codewords:
     for(int i = 1; i < MAX_CODEWORD_LENGTH; i++) {
 #pragma HLS PIPELINE II=1
-#pragma HLS UNROLL factor=16
-#pragma HLS ARRAY_PARTITION variable=codeword_length_histogram cyclic factor=2
-#pragma HLS ARRAY_PARTITION variable=sybmbol_bits cyclic factor=2
-#pragma HLS ARRAY_PARTITION variable=encoding cyclic factor=2
-#pragma HLS ARRAY_PARTITION variable=first_codeword cyclic factor=16
+
+PRAGMA_HLS (HLS unroll factor=copy1)
+PRAGMA_HLS(HLS array_partition variable=first_codeword factor=copy1 cyclic)
+
         first_codeword[i] = (first_codeword[i-1] + codeword_length_histogram[i-1]) << 1;
-        Codeword c = first_codeword[i];
+//        Codeword c = first_codeword[i];
         //        std::cout << c.to_string(2) << " with length " << i << "\n";
     }
 
  assign_codewords:
   for (int i = 0; i < INPUT_SYMBOL_SIZE; ++i) {
 #pragma HLS PIPELINE II=5
-#pragma HLS UNROLL factor=2
+PRAGMA_HLS (HLS unroll factor=assign_codeword)
+
       CodewordLength length = symbol_bits[i];
       //if symbol has 0 bits, it doesn't need to be encoded
   make_codeword:

@@ -1,5 +1,6 @@
 #include "huffman.h"
 #include "assert.h"
+#include "huffman_params.h"
 void huffman_encoding(
     /* input */ Symbol symbol_histogram[INPUT_SYMBOL_SIZE],
     /* output */ PackedCodewordAndLength encoding[INPUT_SYMBOL_SIZE],
@@ -15,6 +16,8 @@ void huffman_encoding(
     ap_uint<SYMBOL_BITS> right[INPUT_SYMBOL_SIZE-1];
     int n;
 
+    PRAGMA_HLS(HLS array_partition variable=filtered factor=filter_parition cyclic)
+    PRAGMA_HLS(HLS array_partition variable=sorted factor=re_sort cyclic)
     filter(symbol_histogram, filtered, &n);
     sort(filtered, n, sorted);
 
@@ -23,6 +26,11 @@ void huffman_encoding(
     ap_uint<SYMBOL_BITS> truncated_length_histogram2[TREE_DEPTH];
     CodewordLength symbol_bits[INPUT_SYMBOL_SIZE];
 
+    PRAGMA_HLS(HLS array_partition variable=length_histogram factor=copy0 cyclic)
+    PRAGMA_HLS(HLS array_partition variable=truncated_length_histogram1 factor=copy1 cyclic)
+	PRAGMA_HLS(HLS array_partition variable=truncated_length_histogram2 factor=copy1 cyclic)
+	PRAGMA_HLS(HLS array_partition variable=symbol_bits factor=copy0 cyclic)
+	PRAGMA_HLS(HLS array_partition variable=encoding factor=assign_codeword cyclic)
     int previous_frequency = -1;
  copy_sorted:
     for(int i = 0; i < n; i++) {

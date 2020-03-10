@@ -9,10 +9,7 @@ void canonize_tree(
 
  init_bits:
     for(int i = 0; i < INPUT_SYMBOL_SIZE; i++) {
-#pragma HLS UNROLL factor=16
-#pragma HLS ARRAY_PARTITION variable=sorted cyclic factor=2
-#pragma HLS ARRAY_PARTITION variable=codeword_length_histogram cyclic factor=2
-#pragma HLS ARRAY_PARTITION variable=sybmbol_bits cyclic factor=2
+PRAGMA_HLS (HLS unroll factor=copy0)
         symbol_bits[i] = 0;
     }
     
@@ -23,7 +20,8 @@ void canonize_tree(
     // Assign them largest bit length to smallest
  process_symbols:
     for(int k = 0; k < num_symbols; k++) {
-#pragma HLS UNROLL factor=2
+ PRAGMA_HLS (HLS unroll factor=process_symbols)
+
 //#pragma HLS LOOP_TRIPCOUNT min=256 max=256
         if (count == 0) {
             //find the next non-zero bit length

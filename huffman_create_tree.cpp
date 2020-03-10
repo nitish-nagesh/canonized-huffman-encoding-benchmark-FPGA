@@ -14,14 +14,7 @@ void create_tree (
     assert(num_symbols <= INPUT_SYMBOL_SIZE);
     for(int i = 0; i < (num_symbols-1); i++) {
 #pragma HLS PIPELINE II=5
-//#pragma HLS LOOP_TRIPCOUNT min=num_symbols-1 max=num_symbols-1
-//#pragma HLS LOOP_TRIPCOUNT min=2 max=INPUT_SYMBOL_SIZE-1
-#pragma HLS UNROLL factor=2
-#pragma HLS ARRAY_PARTITION variable=frequency cyclic factor=4
-#pragma HLS ARRAY_PARTITION variable=in cyclic factor=4
-#pragma HLS ARRAY_PARTITION variable=left cyclic factor=4
-#pragma HLS ARRAY_PARTITION variable=parent cyclic factor=4
-#pragma HLS ARRAY_PARTITION variable=right cyclic factor=4
+
         Frequency node_freq = 0;
 
         // There are two cases.

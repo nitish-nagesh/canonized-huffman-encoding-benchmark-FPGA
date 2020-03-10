@@ -1,0 +1,17 @@
+#ifndef PARAMS_H_
+#define PARAMS_H_
+
+#define PRAGMA_SUB(x) _Pragma (#x)
+#define PRAGMA_HLS(x) PRAGMA_SUB(x)
+
+#define copy0 %1
+#define copy1 %2
+#define compute_histogram %3
+#define compute_histogram_partition %4
+#define re_sort %5
+#define process_symbols %6
+#define move_nodes %7
+#define assign_codeword %8
+
+
+#endif
