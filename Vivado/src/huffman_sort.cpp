@@ -20,7 +20,7 @@ void sort(
     for(int j = 0; j < num_symbols; j++) {
 #pragma HLS PIPELINE II=1
 #pragma HLS LOOP_TRIPCOUNT min=2 max=INPUT_SYMBOL_SIZE
-PRAGMA_HLS (HLS unroll factor=copy1)
+PRAGMA_HLS(HLS unroll factor=copy1)
 PRAGMA_HLS(HLS array_partition variable=sorting factor=copy1 cyclic)
         sorting[j] = in[j];
 
@@ -31,7 +31,7 @@ PRAGMA_HLS(HLS array_partition variable=sorting factor=copy1 cyclic)
     init_histogram:
         for(int i = 0; i < RADIX; i++) {
 #pragma HLS pipeline II=1
-PRAGMA_HLS (HLS unroll factor=copy0)
+PRAGMA_HLS(HLS unroll factor=copy0)
 
             digit_histogram[i] = 0;
         }
@@ -41,7 +41,7 @@ PRAGMA_HLS (HLS unroll factor=copy0)
 #pragma HLS PIPELINE II=1
 #pragma HLS LOOP_TRIPCOUNT min=2 max=INPUT_SYMBOL_SIZE
 
-PRAGMA_HLS (HLS unroll factor=compute_histogram)
+PRAGMA_HLS(HLS unroll factor=compute_histogram)
 PRAGMA_HLS(HLS array_partition variable=previous_sorting factor=compute_histogram_partition cyclic)
 PRAGMA_HLS(HLS array_partition variable=current_digit factor=compute_histogram_partition cyclic)
 
@@ -56,14 +56,14 @@ PRAGMA_HLS(HLS array_partition variable=current_digit factor=compute_histogram_p
         for(int i = 1; i < RADIX; i++)
 #pragma HLS PIPELINE II=1
 
-PRAGMA_HLS (HLS unroll factor=copy1)
+PRAGMA_HLS(HLS unroll factor=copy1)
             digit_location[i] = digit_location[i-1] + digit_histogram[i-1];
 
     re_sort:
         for(int j = 0; j < num_symbols; j++) {
 #pragma HLS PIPELINE II=1
 #pragma HLS LOOP_TRIPCOUNT min=2 max=INPUT_SYMBOL_SIZE
-PRAGMA_HLS (HLS unroll factor=re_sort)
+PRAGMA_HLS(HLS unroll factor=re_sort)
 
             Digit digit = current_digit[j];
             sorting[digit_location[digit]] = previous_sorting[j]; // Move symbol to new sorted location

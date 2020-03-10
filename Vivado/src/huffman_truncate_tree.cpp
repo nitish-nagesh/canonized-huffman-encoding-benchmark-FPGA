@@ -8,7 +8,7 @@ void truncate_tree(
     // Copy into temporary storage to maintain dataflow properties
  copy_input:
     for(int i = 0; i < TREE_DEPTH; i++) {
-PRAGMA_HLS (HLS unroll factor=copy1)
+PRAGMA_HLS(HLS unroll factor=copy1)
 
         output_length_histogram1[i] = input_length_histogram[i];
     }
@@ -17,7 +17,7 @@ PRAGMA_HLS (HLS unroll factor=copy1)
  move_nodes:
     for(int i = TREE_DEPTH - 1; i > MAX_CODEWORD_LENGTH; i--) {
 
-PRAGMA_HLS (HLS unroll factor=move_nodes)
+PRAGMA_HLS(HLS unroll factor=move_nodes)
         // Look to see if there is any nodes at lengths greater than target depth
     reorder:
         while(output_length_histogram1[i] != 0) {
@@ -46,7 +46,7 @@ PRAGMA_HLS (HLS unroll factor=move_nodes)
     unsigned int limit = 1;
  copy_output:
     for(int i = 0; i < TREE_DEPTH; i++) {
-   PRAGMA_HLS (HLS unroll factor=copy1)
+   PRAGMA_HLS(HLS unroll factor=copy1)
         output_length_histogram2[i] = output_length_histogram1[i];
         assert(output_length_histogram1[i] >= 0);
         assert(output_length_histogram1[i] <= limit);

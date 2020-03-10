@@ -13,7 +13,7 @@ void compute_bit_length (
  init_histogram:
     for(int i = 0; i < TREE_DEPTH; i++) {
         #pragma HLS pipeline II=1
-PRAGMA_HLS (HLS unroll factor=copy0)
+PRAGMA_HLS(HLS unroll factor=copy0)
 PRAGMA_HLS(HLS array_partition variable=internal_length_histogram factor=copy0 cyclic)
 
 

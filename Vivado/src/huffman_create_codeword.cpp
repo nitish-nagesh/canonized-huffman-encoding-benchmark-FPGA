@@ -14,7 +14,7 @@ void create_codeword(
     for(int i = 1; i < MAX_CODEWORD_LENGTH; i++) {
 #pragma HLS PIPELINE II=1
 
-PRAGMA_HLS (HLS unroll factor=copy1)
+PRAGMA_HLS(HLS unroll factor=copy1)
 PRAGMA_HLS(HLS array_partition variable=first_codeword factor=copy1 cyclic)
 
         first_codeword[i] = (first_codeword[i-1] + codeword_length_histogram[i-1]) << 1;
@@ -25,7 +25,7 @@ PRAGMA_HLS(HLS array_partition variable=first_codeword factor=copy1 cyclic)
  assign_codewords:
   for (int i = 0; i < INPUT_SYMBOL_SIZE; ++i) {
 #pragma HLS PIPELINE II=5
-PRAGMA_HLS (HLS unroll factor=assign_codeword)
+PRAGMA_HLS(HLS unroll factor=assign_codeword)
 
       CodewordLength length = symbol_bits[i];
       //if symbol has 0 bits, it doesn't need to be encoded
