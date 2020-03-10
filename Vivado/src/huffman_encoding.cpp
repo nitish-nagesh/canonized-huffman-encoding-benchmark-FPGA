@@ -61,7 +61,7 @@ void huffman_encoding(
     std::cout << "done\n";
 #endif
 
-        truncate_tree(length_histogram, truncated_length_histogram1, truncated_length_histogram2);
+    truncate_tree(length_histogram, truncated_length_histogram1, truncated_length_histogram2);
     canonize_tree(sorted_copy2, n, truncated_length_histogram1, symbol_bits);
     create_codeword(symbol_bits, truncated_length_histogram2, encoding);
 

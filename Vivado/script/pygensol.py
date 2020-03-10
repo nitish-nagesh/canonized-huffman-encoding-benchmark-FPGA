@@ -17,12 +17,15 @@ logName = ""
 logNameSynth = "synth.log"
 logNamePnr   = "pnr.log"
 
-templateFilepath = "./src/params.h.template" # Knobs template file
+templateFilepath = "./src/huffman_params.h.template" # Knobs template file
 
 outRootPath    = "./solutions"            # Name of output directory where all folders are generated
-benchmark_name = "mergesort"
+benchmark_name = "huffman"
 
-files_to_copy = ["./src/mergesort.cpp","./src/mergesort_test.cpp"]
+files_to_copy = ["./src/huffman_encoding.cpp", "./src/huffman_filter.cpp", "./src/huffman_sort.cpp", 
+                 "./src/huffman_create_tree.cpp", "./src/huffman_compute_bit_length.cpp", "./src/huffman_truncate_tree.cpp", 
+                 "./src/huffman_canonize_tree.cpp", "./src/huffman_create_codeword.cpp", "./src/huffman.random256.txt",
+                 "huffman.random256.golden", "./src/huffman_encoding_test.cpp"]
 
 run_place_route = False
 
@@ -92,7 +95,7 @@ def write_params(finalCombinations, templateFilepath):
         if not os.path.exists(dirname):
             os.makedirs(dirname)
         dirlist.append(dirname)
-        with open(os.path.join(dirname, "params.h"), "wt") as fout:
+        with open(os.path.join(dirname, "huffman_params.h"), "wt") as fout:
             fout.write(knobs_text)
 
         # Copy source files
@@ -105,7 +108,6 @@ def write_params(finalCombinations, templateFilepath):
 # ***************************************************************************
 # Knobs
 # ***********
-
 
 copy0=[1,2,4,8]
 copy1=[1,2,4,8]
@@ -125,6 +127,7 @@ allCombinations = list(itertools.product(
     process_symbols,
     move_nodes,
     assign_codeword))
+
 # ***************************************************************************
 
 
