@@ -37,9 +37,9 @@ def run_script(path):
     try:
         start = time.time()
         if run_place_route:
-            command = " ".join(["timeout 3600", "vivado_hls","-f","../../gen_pnr.tcl"])
+            command = " ".join(["timeout 3600", "vivado_hls","-f","../../script/gen_pnr.tcl"])
         else:
-            command = " ".join(["timeout 600", "vivado_hls","-f","../../gen_synth.tcl"])
+            command = " ".join(["timeout 600", "vivado_hls","-f","../../script/gen_synth.tcl"])
         subprocess.check_output(command, cwd=path, shell=True)
         end = time.time()
 
