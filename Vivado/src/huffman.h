@@ -1,5 +1,5 @@
 #include "ap_int.h"
-#include "params.h"
+#include "huffman_params.h"
 
 // input number of symbols
 const static int INPUT_SYMBOL_SIZE = 256;
