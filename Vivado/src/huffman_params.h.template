@@ -6,12 +6,12 @@
 
 #define copy0 %1
 #define copy1 %2
-#define compute_histogram %3
-#define compute_histogram_partition %4
-#define re_sort %5
-#define process_symbols %6
-#define move_nodes %7
-#define assign_codeword %8
+#define computehistogram %3
+#define computehistogram_partition %4
+#define resort %5
+#define processsymbols %6
+#define movenodes %7
+#define assigncodeword %8
 
 
 #endif

@@ -16,8 +16,7 @@ void huffman_encoding(
     ap_uint<SYMBOL_BITS> right[INPUT_SYMBOL_SIZE-1];
     int n;
 
-    PRAGMA_HLS(HLS array_partition variable=filtered factor=filter_parition cyclic)
-    PRAGMA_HLS(HLS array_partition variable=sorted factor=re_sort cyclic)
+    PRAGMA_HLS(HLS array_partition variable=sorted factor=resort cyclic)
     filter(symbol_histogram, filtered, &n);
     sort(filtered, n, sorted);
 
@@ -30,7 +29,7 @@ void huffman_encoding(
     PRAGMA_HLS(HLS array_partition variable=truncated_length_histogram1 factor=copy1 cyclic)
 	PRAGMA_HLS(HLS array_partition variable=truncated_length_histogram2 factor=copy1 cyclic)
 	PRAGMA_HLS(HLS array_partition variable=symbol_bits factor=copy0 cyclic)
-	PRAGMA_HLS(HLS array_partition variable=encoding factor=assign_codeword cyclic)
+	PRAGMA_HLS(HLS array_partition variable=encoding factor=assigncodeword cyclic)
     int previous_frequency = -1;
  copy_sorted:
     for(int i = 0; i < n; i++) {

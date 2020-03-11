@@ -111,22 +111,22 @@ def write_params(finalCombinations, templateFilepath):
 
 copy0=[1,2,4,8]
 copy1=[1,2,4,8]
-compute_histogram=[1,2,4]
-compute_histogram_partition=[1,2,4]
-re_sort=[1,2]
-process_symbols=[1,2]
-move_nodes=[1,2]
-assign_codeword=[1,2]
+computehistogram=[1,2,4]
+computehistogram_partition=[1,2,4]
+resort=[1,2]
+processsymbols=[1,2]
+movenodes=[1,2]
+assigncodeword=[1,2]
 
 allCombinations = list(itertools.product(
     copy0,
     copy1,
-    compute_histogram,
-    compute_histogram_partition,
-    re_sort,
-    process_symbols,
-    move_nodes,
-    assign_codeword))
+    computehistogram,
+    computehistogram_partition,
+    resort,
+    processsymbols,
+    movenodes,
+    assigncodeword))
 
 # ***************************************************************************
 
