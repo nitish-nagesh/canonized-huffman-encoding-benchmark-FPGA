@@ -3,7 +3,7 @@
 #include <iostream>
 void create_codeword(
   /* input */ CodewordLength symbol_bits[INPUT_SYMBOL_SIZE],
-  /* input */ ap_uint<SYMBOL_BITS> codeword_length_histogram[TREE_DEPTH],
+  /* input */ ac_int<SYMBOL_BITS, false> codeword_length_histogram[TREE_DEPTH],
   /* output */ PackedCodewordAndLength encoding[INPUT_SYMBOL_SIZE]
 ) {
     Codeword first_codeword[MAX_CODEWORD_LENGTH];

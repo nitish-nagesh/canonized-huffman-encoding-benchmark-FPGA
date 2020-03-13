@@ -1,9 +1,9 @@
 #include "huffman.h"
 #include "assert.h"
 void truncate_tree(
-    /* input */ ap_uint<SYMBOL_BITS> input_length_histogram[TREE_DEPTH],
-    /* output */ ap_uint<SYMBOL_BITS> output_length_histogram1[TREE_DEPTH],
-    /* output */ ap_uint<SYMBOL_BITS> output_length_histogram2[TREE_DEPTH]
+    /* input */ ac_int<SYMBOL_BITS, false> input_length_histogram[TREE_DEPTH],
+    /* output */ ac_int<SYMBOL_BITS, false> output_length_histogram1[TREE_DEPTH],
+    /* output */ ac_int<SYMBOL_BITS, false> output_length_histogram2[TREE_DEPTH]
 ) {
     // Copy into temporary storage to maintain dataflow properties
  copy_input:
@@ -13,7 +13,7 @@ PRAGMA_HLS(HLS unroll factor=copy1)
         output_length_histogram1[i] = input_length_histogram[i];
     }
 
-    ap_uint<SYMBOL_BITS> j = MAX_CODEWORD_LENGTH;
+    ac_int<SYMBOL_BITS, false> j = MAX_CODEWORD_LENGTH;
  move_nodes:
     for(int i = TREE_DEPTH - 1; i > MAX_CODEWORD_LENGTH; i--) {
 

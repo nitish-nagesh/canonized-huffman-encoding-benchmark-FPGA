@@ -5,10 +5,10 @@ void filter(
             /* input  */ Symbol in[INPUT_SYMBOL_SIZE],
             /* output */ Symbol out[INPUT_SYMBOL_SIZE],
             /* output */ int *n) {
-#pragma HLS INLINE off
-    ap_uint<SYMBOL_BITS> j = 0;
+    //#pragma HLS INLINE off
+    ac_int<SYMBOL_BITS, false> j = 0;
+    #pragma hls_pipeline_init_interval 1
     for(int i = 0; i < INPUT_SYMBOL_SIZE; i++) {
-#pragma HLS pipeline II=1
         if(in[i].frequency != 0) {
             out[j].frequency = in[i].frequency;
             out[j].value = in[i].value;

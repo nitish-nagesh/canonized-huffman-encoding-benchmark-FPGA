@@ -3,12 +3,12 @@
 void create_tree (
     /* input */ Symbol in[INPUT_SYMBOL_SIZE],
     /* input */ int num_symbols,
-    /* output */ ap_uint<SYMBOL_BITS> parent[INPUT_SYMBOL_SIZE-1],
-    /* output */ ap_uint<SYMBOL_BITS> left[INPUT_SYMBOL_SIZE-1],
-    /* output */ ap_uint<SYMBOL_BITS> right[INPUT_SYMBOL_SIZE-1]) {
+    /* output */ ac_int<SYMBOL_BITS, false> parent[INPUT_SYMBOL_SIZE-1],
+    /* output */ ac_int<SYMBOL_BITS, false> left[INPUT_SYMBOL_SIZE-1],
+    /* output */ ac_int<SYMBOL_BITS, false> right[INPUT_SYMBOL_SIZE-1]) {
     Frequency frequency[INPUT_SYMBOL_SIZE-1] = {0};
-    ap_uint<SYMBOL_BITS> tree_count = 0;  // Number of intermediate nodes assigned a parent.
-    ap_uint<SYMBOL_BITS> in_count = 0;    // Number of inputs consumed.
+    ac_int<SYMBOL_BITS, false> tree_count = 0;  // Number of intermediate nodes assigned a parent.
+    ac_int<SYMBOL_BITS, false> in_count = 0;    // Number of inputs consumed.
 
     assert(num_symbols > 0);
     assert(num_symbols <= INPUT_SYMBOL_SIZE);

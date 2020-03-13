@@ -11,18 +11,18 @@ void huffman_encoding(
     Symbol sorted[INPUT_SYMBOL_SIZE];
     Symbol sorted_copy1[INPUT_SYMBOL_SIZE];
     Symbol sorted_copy2[INPUT_SYMBOL_SIZE];
-    ap_uint<SYMBOL_BITS> parent[INPUT_SYMBOL_SIZE-1];
-    ap_uint<SYMBOL_BITS> left[INPUT_SYMBOL_SIZE-1];
-    ap_uint<SYMBOL_BITS> right[INPUT_SYMBOL_SIZE-1];
+    ac_int<SYMBOL_BITS, false> parent[INPUT_SYMBOL_SIZE-1];
+    ac_int<SYMBOL_BITS, false> left[INPUT_SYMBOL_SIZE-1];
+    ac_int<SYMBOL_BITS, false> right[INPUT_SYMBOL_SIZE-1];
     int n;
 
     PRAGMA_HLS(HLS array_partition variable=sorted factor=resort cyclic)
     filter(symbol_histogram, filtered, &n);
     sort(filtered, n, sorted);
 
-    ap_uint<SYMBOL_BITS> length_histogram[TREE_DEPTH];
-    ap_uint<SYMBOL_BITS> truncated_length_histogram1[TREE_DEPTH];
-    ap_uint<SYMBOL_BITS> truncated_length_histogram2[TREE_DEPTH];
+    ac_int<SYMBOL_BITS, false> length_histogram[TREE_DEPTH];
+    ac_int<SYMBOL_BITS, false> truncated_length_histogram1[TREE_DEPTH];
+    ac_int<SYMBOL_BITS, false> truncated_length_histogram2[TREE_DEPTH];
     CodewordLength symbol_bits[INPUT_SYMBOL_SIZE];
 
     PRAGMA_HLS(HLS array_partition variable=length_histogram factor=copy0 cyclic)

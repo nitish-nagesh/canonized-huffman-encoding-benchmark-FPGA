@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void file_to_array(const char *filename, ap_uint<16> *&array, int array_length) {
+void file_to_array(const char *filename, ac_int<16, false> *&array, int array_length) {
     printf("Start reading file [%s]\n", filename);
     FILE *file = fopen(filename, "r");
     if(file == NULL) {
@@ -12,13 +12,13 @@ void file_to_array(const char *filename, ap_uint<16> *&array, int array_length) 
 
     int     file_value = 0;
     int     count = 0;
-    array = (ap_uint<16> *) malloc(array_length*sizeof(ap_uint<16>));
+    array = (ac_int<16, false> *) malloc(array_length*sizeof(ac_int<16, false>));
 
     while(1) {
         int eof_check = fscanf(file, "%x", &file_value);
         if(eof_check == EOF) break;
         else {
-            array[count++] = (ap_uint<16>) file_value ;
+            array[count++] = (ac_int<16, false>) file_value ;
         }
     }
     fclose(file);
@@ -30,7 +30,7 @@ int main() {
     printf("Starting canonical Huffman encoding testbench\n");
     FILE *output_file;
     int return_val = 0;
-    ap_uint<16> *frequencies = NULL;
+    ac_int<16, false> *frequencies = NULL;
     file_to_array("huffman.random256.txt", frequencies, INPUT_SYMBOL_SIZE);
 
     Symbol in[INPUT_SYMBOL_SIZE];

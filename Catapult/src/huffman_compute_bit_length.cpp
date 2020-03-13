@@ -1,15 +1,15 @@
 #include "huffman.h"
 #include "assert.h"
 void compute_bit_length (
-    /* input */ ap_uint<SYMBOL_BITS> parent[INPUT_SYMBOL_SIZE-1],
-    /* input */ ap_uint<SYMBOL_BITS> left[INPUT_SYMBOL_SIZE-1],
-    /* input */ ap_uint<SYMBOL_BITS> right[INPUT_SYMBOL_SIZE-1],
+    /* input */ ac_int<SYMBOL_BITS, false> parent[INPUT_SYMBOL_SIZE-1],
+    /* input */ ac_int<SYMBOL_BITS, false> left[INPUT_SYMBOL_SIZE-1],
+    /* input */ ac_int<SYMBOL_BITS, false> right[INPUT_SYMBOL_SIZE-1],
     /* input */ int num_symbols,
-    /* output */ ap_uint<SYMBOL_BITS> length_histogram[TREE_DEPTH]) {
+    /* output */ ac_int<SYMBOL_BITS, false> length_histogram[TREE_DEPTH]) {
     assert(num_symbols > 0);
     assert(num_symbols <= INPUT_SYMBOL_SIZE);
-    ap_uint<TREE_DEPTH_BITS> child_depth[INPUT_SYMBOL_SIZE-1];
-    ap_uint<SYMBOL_BITS> internal_length_histogram[TREE_DEPTH];
+    ac_int<TREE_DEPTH_BITS, false> child_depth[INPUT_SYMBOL_SIZE-1];
+    ac_int<SYMBOL_BITS, false> internal_length_histogram[TREE_DEPTH];
  init_histogram:
     for(int i = 0; i < TREE_DEPTH; i++) {
         #pragma HLS pipeline II=1
@@ -28,7 +28,7 @@ traverse_tree:
 #pragma HLS pipeline II=3
 #pragma HLS LOOP_TRIPCOUNT min=1 max=INPUT_SYMBOL_SIZE-2
 
-        ap_uint<TREE_DEPTH_BITS> length = child_depth[parent[i]] + 1;
+        ac_int<TREE_DEPTH_BITS, false> length = child_depth[parent[i]] + 1;
         child_depth[i] = length;
         if(left[i] != INTERNAL_NODE || right[i] != INTERNAL_NODE){
             int children;
@@ -39,7 +39,7 @@ traverse_tree:
                 // One child of the original node was a symbol
                 children = 1;
             }
-            ap_uint<SYMBOL_BITS> count = internal_length_histogram[length];
+            ac_int<SYMBOL_BITS, false> count = internal_length_histogram[length];
             count += children;
             internal_length_histogram[length] = count;
             length_histogram[length] = count;
