@@ -1,11 +1,13 @@
 #include "huffman.h"
 #include "assert.h"
 #include "huffman_params.h"
+
+#pragma design top
 void huffman_encoding(
     /* input */ Symbol symbol_histogram[INPUT_SYMBOL_SIZE],
     /* output */ PackedCodewordAndLength encoding[INPUT_SYMBOL_SIZE],
     /* output */ int *num_nonzero_symbols) {
-    #pragma HLS DATAFLOW
+    //#pragma HLS DATAFLOW
 
     Symbol filtered[INPUT_SYMBOL_SIZE];
     Symbol sorted[INPUT_SYMBOL_SIZE];
@@ -16,7 +18,6 @@ void huffman_encoding(
     ac_int<SYMBOL_BITS, false> right[INPUT_SYMBOL_SIZE-1];
     int n;
 
-    PRAGMA_HLS(HLS array_partition variable=sorted factor=resort cyclic)
     filter(symbol_histogram, filtered, &n);
     sort(filtered, n, sorted);
 
@@ -25,11 +26,6 @@ void huffman_encoding(
     ac_int<SYMBOL_BITS, false> truncated_length_histogram2[TREE_DEPTH];
     CodewordLength symbol_bits[INPUT_SYMBOL_SIZE];
 
-    PRAGMA_HLS(HLS array_partition variable=length_histogram factor=copy0 cyclic)
-    PRAGMA_HLS(HLS array_partition variable=truncated_length_histogram1 factor=copy1 cyclic)
-	PRAGMA_HLS(HLS array_partition variable=truncated_length_histogram2 factor=copy1 cyclic)
-	PRAGMA_HLS(HLS array_partition variable=symbol_bits factor=copy0 cyclic)
-	PRAGMA_HLS(HLS array_partition variable=encoding factor=assigncodeword cyclic)
     int previous_frequency = -1;
  copy_sorted:
     for(int i = 0; i < n; i++) {
@@ -44,21 +40,6 @@ void huffman_encoding(
 
     create_tree(sorted_copy1, n, parent, left, right);
     compute_bit_length(parent, left, right, n, length_histogram);
-
-#ifndef __SYNTHESIS__
-    // Check the result of computing the tree histogram
-    int codewords_in_tree = 0;
- merge_bit_length:
-    for(int i = 0; i < TREE_DEPTH; i++) {
-        #pragma HLS PIPELINE II=1
-        if(length_histogram[i] > 0)
-            std::cout << length_histogram[i] << " codewords with length " << i << "\n";
-        codewords_in_tree += length_histogram[i];
-    }
-
-    assert(codewords_in_tree == n);
-    std::cout << "done\n";
-#endif
 
     truncate_tree(length_histogram, truncated_length_histogram1, truncated_length_histogram2);
     canonize_tree(sorted_copy2, n, truncated_length_histogram1, symbol_bits);

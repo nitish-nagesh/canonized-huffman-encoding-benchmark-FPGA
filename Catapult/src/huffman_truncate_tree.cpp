@@ -6,26 +6,18 @@ void truncate_tree(
     /* output */ ac_int<SYMBOL_BITS, false> output_length_histogram2[TREE_DEPTH]
 ) {
     // Copy into temporary storage to maintain dataflow properties
- copy_input:
-    for(int i = 0; i < TREE_DEPTH; i++) {
-PRAGMA_HLS(HLS unroll factor=copy1)
+    copy_input:for(int i = 0; i < TREE_DEPTH; i++) {
 
         output_length_histogram1[i] = input_length_histogram[i];
     }
 
     ac_int<SYMBOL_BITS, false> j = MAX_CODEWORD_LENGTH;
- move_nodes:
-    for(int i = TREE_DEPTH - 1; i > MAX_CODEWORD_LENGTH; i--) {
-
-PRAGMA_HLS(HLS unroll factor=movenodes)
+    move_nodes: for(int i = TREE_DEPTH - 1; i > MAX_CODEWORD_LENGTH; i--) {
         // Look to see if there is any nodes at lengths greater than target depth
-    reorder:
-        while(output_length_histogram1[i] != 0) {
-#pragma HLS LOOP_TRIPCOUNT min=3 max=3 avg=3
+    reorder: while(output_length_histogram1[i] != 0) {
             if (j == MAX_CODEWORD_LENGTH) {
                 // Find deepest leaf with codeword length < target depth
                 do {
-#pragma HLS LOOP_TRIPCOUNT min=1 max=1 avg=1
                     j--;
                 } while(output_length_histogram1[j] == 0);
             }
@@ -44,9 +36,7 @@ PRAGMA_HLS(HLS unroll factor=movenodes)
 
     // Copy the output to meet dataflow requirements and check the validity
     unsigned int limit = 1;
- copy_output:
-    for(int i = 0; i < TREE_DEPTH; i++) {
-   PRAGMA_HLS(HLS unroll factor=copy1)
+ copy_output: for(int i = 0; i < TREE_DEPTH; i++) {
         output_length_histogram2[i] = output_length_histogram1[i];
         assert(output_length_histogram1[i] >= 0);
         assert(output_length_histogram1[i] <= limit);

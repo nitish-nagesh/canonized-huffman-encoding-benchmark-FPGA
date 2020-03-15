@@ -8,7 +8,7 @@ void filter(
     //#pragma HLS INLINE off
     ac_int<SYMBOL_BITS, false> j = 0;
     #pragma hls_pipeline_init_interval 1
-    for(int i = 0; i < INPUT_SYMBOL_SIZE; i++) {
+    filter_main: for(int i = 0; i < INPUT_SYMBOL_SIZE; i++) {
         if(in[i].frequency != 0) {
             out[j].frequency = in[i].frequency;
             out[j].value = in[i].value;

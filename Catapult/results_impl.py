@@ -78,7 +78,7 @@ def main():
     finalCombinations = removeCombinations(allCombinations)
     file1=open('final_result_impl_huffman.csv','w')
     file1.write("copy0"+","+"copy1"+","+"computehistogram"+","+"computehistogram_partition"+","+"resort"+","+"processsymbols"+","+"movenodes"+","+"assigncodeword"+","+"obj1"+","+"obj2\n")
-    for d in sorted(glob.glob('impl_reports/huffman_export*.xml')):
+    for d in sorted(glob.glob('impl_reports/mergesort_export*.xml')):
         m = re.search('huffman_export(\d+)', d)
         num = m.group(1)
         synth_path=os.path.join('syn_reports/csynth'+num+'.xml')
