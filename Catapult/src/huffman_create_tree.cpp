@@ -12,8 +12,8 @@ void create_tree (
 
     assert(num_symbols > 0);
     assert(num_symbols <= INPUT_SYMBOL_SIZE);
-    for(int i = 0; i < (num_symbols-1); i++) {
-#pragma HLS PIPELINE II=5
+    #pragma hls_pipeline_init_interval 5
+    create_tree_main: for(int i = 0; i < (num_symbols-1); i++) {
 
         Frequency node_freq = 0;
 

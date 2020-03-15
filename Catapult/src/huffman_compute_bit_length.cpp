@@ -10,23 +10,17 @@ void compute_bit_length (
     assert(num_symbols <= INPUT_SYMBOL_SIZE);
     ac_int<TREE_DEPTH_BITS, false> child_depth[INPUT_SYMBOL_SIZE-1];
     ac_int<SYMBOL_BITS, false> internal_length_histogram[TREE_DEPTH];
- init_histogram:
-    for(int i = 0; i < TREE_DEPTH; i++) {
-        #pragma HLS pipeline II=1
-PRAGMA_HLS(HLS unroll factor=copy0)
-PRAGMA_HLS(HLS array_partition variable=internal_length_histogram factor=copy0 cyclic)
 
-
+    #pragma hls_pipeline_init_interval 1
+    init_histogram: for(int i = 0; i < TREE_DEPTH; i++) {
         internal_length_histogram[i] = 0;
         length_histogram[i] = 0;
     }
 
     child_depth[num_symbols-2] = 1; // Depth of the root node is 1.
 
-traverse_tree:
-    for(int i = num_symbols-3; i >= 0; i--) {
-#pragma HLS pipeline II=3
-#pragma HLS LOOP_TRIPCOUNT min=1 max=INPUT_SYMBOL_SIZE-2
+    #pragma hls_pipeline_init_interval 3
+    traverse_tree: for(int i = num_symbols-3; i >= 0; i--) {
 
         ac_int<TREE_DEPTH_BITS, false> length = child_depth[parent[i]] + 1;
         child_depth[i] = length;

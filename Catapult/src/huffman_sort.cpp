@@ -10,17 +10,14 @@ void sort(
     /* output */ Symbol out[INPUT_SYMBOL_SIZE]) {
     Symbol previous_sorting[INPUT_SYMBOL_SIZE], sorting[INPUT_SYMBOL_SIZE];
     ac_int<SYMBOL_BITS, false> digit_histogram[RADIX], digit_location[RADIX];
-#pragma HLS ARRAY_PARTITION variable=digit_location complete dim=1
-#pragma HLS ARRAY_PARTITION variable=digit_histogram complete dim=1
+//#pragma HLS ARRAY_PARTITION variable=digit_location complete dim=1
+//#pragma HLS ARRAY_PARTITION variable=digit_histogram complete dim=1
     Digit current_digit[INPUT_SYMBOL_SIZE];
 
     assert(num_symbols >= 0);
     assert(num_symbols <= INPUT_SYMBOL_SIZE);
     #pragma hls_pipeline_init_interval 1
     copy_in_to_sorting: for(int j = 0; j < num_symbols; j++) {
-#pragma HLS LOOP_TRIPCOUNT min=2 max=INPUT_SYMBOL_SIZE
-//PRAGMA_HLS(HLS unroll factor=copy1)
-//PRAGMA_HLS(HLS array_partition variable=sorting factor=copy1 cyclic)
         sorting[j] = in[j];
 
     }
@@ -34,12 +31,6 @@ void sort(
         }
     #pragma hls_pipeline_init_interval 1
     compute_histogram: for(int j = 0; j < num_symbols; j++) {
-        #pragma HLS PIPELINE II=1
-        #pragma HLS LOOP_TRIPCOUNT min=2 max=INPUT_SYMBOL_SIZE
-
-PRAGMA_HLS(HLS unroll factor=computehistogram)
-PRAGMA_HLS(HLS array_partition variable=previous_sorting factor=computehistogram_partition cyclic)
-PRAGMA_HLS(HLS array_partition variable=current_digit factor=computehistogram_partition cyclic)
 
             Digit digit = (sorting[j].frequency >> shift) & (RADIX - 1); // Extrract a digit
             current_digit[j] = digit;  // Store the current digit for each symbol
@@ -48,18 +39,12 @@ PRAGMA_HLS(HLS array_partition variable=current_digit factor=computehistogram_pa
         }
 
         digit_location[0] = 0;
-    find_digit_location:
-        for(int i = 1; i < RADIX; i++)
-#pragma HLS PIPELINE II=1
-
-PRAGMA_HLS(HLS unroll factor=copy1)
+        #pragma hls_pipeline_init_interval 1
+    find_digit_location: for(int i = 1; i < RADIX; i++)
             digit_location[i] = digit_location[i-1] + digit_histogram[i-1];
-
-    re_sort:
-        for(int j = 0; j < num_symbols; j++) {
-#pragma HLS PIPELINE II=1
-#pragma HLS LOOP_TRIPCOUNT min=2 max=INPUT_SYMBOL_SIZE
-PRAGMA_HLS(HLS unroll factor=resort)
+    
+    #pragma hls_pipeline_init_interval 1
+    re_sort: for(int j = 0; j < num_symbols; j++) {
 
             Digit digit = current_digit[j];
             sorting[digit_location[digit]] = previous_sorting[j]; // Move symbol to new sorted location

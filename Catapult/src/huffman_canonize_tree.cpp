@@ -7,9 +7,7 @@ void canonize_tree(
     /* output */ CodewordLength symbol_bits[INPUT_SYMBOL_SIZE] ) {
     assert(num_symbols <= INPUT_SYMBOL_SIZE);
 
- init_bits:
-    for(int i = 0; i < INPUT_SYMBOL_SIZE; i++) {
-PRAGMA_HLS(HLS unroll factor=copy0)
+    init_bits: for(int i = 0; i < INPUT_SYMBOL_SIZE; i++) {
         symbol_bits[i] = 0;
     }
     
@@ -18,15 +16,10 @@ PRAGMA_HLS(HLS unroll factor=copy0)
 
     // Iterate across the symbols from lowest frequency to highest
     // Assign them largest bit length to smallest
- process_symbols:
-    for(int k = 0; k < num_symbols; k++) {
- PRAGMA_HLS(HLS unroll factor=processsymbols)
-
-//#pragma HLS LOOP_TRIPCOUNT min=256 max=256
+    process_symbols: for(int k = 0; k < num_symbols; k++) {
         if (count == 0) {
             //find the next non-zero bit length
             do {
-#pragma HLS LOOP_TRIPCOUNT min=1 avg=1 max=2
                 length--;
                 // n is the number of symbols with encoded length i
                 count = codeword_length_histogram[length];
