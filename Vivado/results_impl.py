@@ -47,7 +47,9 @@ def parse_xml(filename1,filename2):
     tree=ET.parse(filename2)
     root=tree.getroot()
     slices=int(slices)
-    avg_latency = root.find('PerformanceEstimates/SummaryOfOverallLatency/Average-caseLatency').text
+    best_latency = root.find('PerformanceEstimates/SummaryOfOverallLatency/Best-caseLatency').text
+    worst_latency = root.find('PerformanceEstimates/SummaryOfOverallLatency/Worst-caseLatency').text
+    avg_latency = (int(best_latency) + int(worst_latency)) / 2 
     #resources       = parse_resources(resources_node)
     #avail_resources = parse_resources(avail_resources_node)
     throughput="{0:.3f}".format(((int(avg_latency)*float(est_clk_period))/1000000000))
