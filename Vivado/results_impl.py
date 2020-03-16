@@ -50,6 +50,7 @@ def parse_xml(filename1,filename2):
     best_latency = root.find('PerformanceEstimates/SummaryOfOverallLatency/Best-caseLatency').text
     worst_latency = root.find('PerformanceEstimates/SummaryOfOverallLatency/Worst-caseLatency').text
     avg_latency = (int(best_latency) + int(worst_latency)) / 2 
+    print(best_latency + " " + worst_latency + " " + avg_latency + "\n" )
     #resources       = parse_resources(resources_node)
     #avail_resources = parse_resources(avail_resources_node)
     throughput="{0:.3f}".format(((int(avg_latency)*float(est_clk_period))/1000000000))
@@ -89,7 +90,7 @@ def main():
         for j in range(8):
             file1.write(str(finalCombinations[int(num)][j])+",")
         file1.write(str(lat)+","+str(slices)+"\n")
-        print("processed design" + num)
+
 
 if __name__ == "__main__":
     main()
