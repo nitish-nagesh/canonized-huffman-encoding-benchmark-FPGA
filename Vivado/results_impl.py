@@ -55,8 +55,8 @@ def parse_xml(filename1,filename2):
     #avail_resources = parse_resources(avail_resources_node)
     # throughput="{0:.3f}".format(((avg_latency*float(est_clk_period))/1000000000))
 
-    # Throughput in MHz
-    throughput="{0:.3f}".format(1000 / (float(est_clk_period) * avg_latency))
+    # Throughput in KHz
+    throughput="{0:.3f}".format(1000000 / (float(est_clk_period) * avg_latency))
     #resources_util = np.divide(resources, avail_resources)*100
     #for i in range(4):
         #resources_util[i]="{0:.2f}".format(resources_util[i])
