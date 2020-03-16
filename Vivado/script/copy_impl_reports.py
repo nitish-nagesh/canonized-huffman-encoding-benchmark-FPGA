@@ -13,7 +13,7 @@ except:
     pass
 
 for d in sorted(glob.glob('../solutions/huffman*')):
-    m = re.search('huffman_encoding(\d+)', d)
+    m = re.search('huffman(\d+)', d)
     num = m.group(1)
     try:
         for f in glob.glob(d + "/huffman_encoding/solutionx/impl/report/verilog/*"):
