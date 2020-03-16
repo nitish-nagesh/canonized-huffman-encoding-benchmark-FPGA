@@ -16,7 +16,7 @@ for d in sorted(glob.glob('../solutions/huffman*')):
     m = re.search('huffman_encoding(\d+)', d)
     num = m.group(1)
     try:
-        for f in glob.glob(d + "/HuffmanEncoding/solutionx/impl/report/verilog/*"):
+        for f in glob.glob(d + "/huffman_encoding/solutionx/impl/report/verilog/*"):
             basename, ext = os.path.splitext(os.path.basename(f))
             shutil.copy(f, os.path.join(impl_dir, basename + num + ext))
     except:
