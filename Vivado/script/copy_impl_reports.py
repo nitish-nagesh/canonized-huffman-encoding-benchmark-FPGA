@@ -12,8 +12,8 @@ try:
 except:
     pass
 
-for d in sorted(glob.glob('solutions/HuffmanEncoding*')):
-    m = re.search('HuffmanEncoding(\d+)', d)
+for d in sorted(glob.glob('../solutions/huffman*')):
+    m = re.search('huffman_encoding(\d+)', d)
     num = m.group(1)
     try:
         for f in glob.glob(d + "/HuffmanEncoding/solutionx/impl/report/verilog/*"):
