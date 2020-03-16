@@ -47,13 +47,16 @@ def parse_xml(filename1,filename2):
     tree=ET.parse(filename2)
     root=tree.getroot()
     slices=int(slices)
-    best_latency = root.find('PerformanceEstimates/SummaryOfOverallLatency/Best-caseLatency').text
-    worst_latency = root.find('PerformanceEstimates/SummaryOfOverallLatency/Worst-caseLatency').text
+    best_latency = root.find('PerformanceEstimates/SummaryOfOverallLatency/Interval-min').text
+    worst_latency = root.find('PerformanceEstimates/SummaryOfOverallLatency/Interval-max').text
     avg_latency = (int(best_latency) + int(worst_latency)) / 2 
     print(best_latency + " " + worst_latency + " " + str(avg_latency) + "\n" )
     #resources       = parse_resources(resources_node)
     #avail_resources = parse_resources(avail_resources_node)
-    throughput="{0:.3f}".format(((int(avg_latency)*float(est_clk_period))/1000000000))
+    # throughput="{0:.3f}".format(((avg_latency*float(est_clk_period))/1000000000))
+
+    # Throughput in MHz
+    throughput="{0:.3f}".format(1000 / (float(est_clk_period) * avg_latency))
     #resources_util = np.divide(resources, avail_resources)*100
     #for i in range(4):
         #resources_util[i]="{0:.2f}".format(resources_util[i])
