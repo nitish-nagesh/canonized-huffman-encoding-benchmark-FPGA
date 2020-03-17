@@ -16,14 +16,15 @@
 //  
 solution new -state initial
 solution options defaults
-solution file add /home/ubuntu/catapult_huffman_encoding/src/huffman_encoding.cpp -type C++
-solution file add /home/ubuntu/catapult_huffman_encoding/src/huffman_filter.cpp -type C++
-solution file add /home/ubuntu/catapult_huffman_encoding/src/huffman_sort.cpp -type C++
-solution file add /home/ubuntu/catapult_huffman_encoding/src/huffman_create_tree.cpp -type C++
-solution file add /home/ubuntu/catapult_huffman_encoding/src/huffman_compute_bit_length.cpp -type C++
-solution file add /home/ubuntu/catapult_huffman_encoding/src/huffman_truncate_tree.cpp -type C++
-solution file add /home/ubuntu/catapult_huffman_encoding/src/huffman_canonize_tree.cpp -type C++
-solution file add /home/ubuntu/catapult_huffman_encoding/src/huffman_create_codeword.cpp -type C++
+solution file add ~/Desktop/cse237c-final-project/Catapult/src/huffman_encoding_test.cpp -type C++
+solution file add ~/Desktop/cse237c-final-project/Catapult/src/huffman_encoding.cpp -type C++
+solution file add ~/Desktop/cse237c-final-project/Catapult/src/huffman_filter.cpp -type C++
+solution file add ~/Desktop/cse237c-final-project/Catapult/src/huffman_sort.cpp -type C++
+solution file add ~/Desktop/cse237c-final-project/Catapult/src/huffman_create_tree.cpp -type C++
+solution file add ~/Desktop/cse237c-final-project/Catapult/src/huffman_compute_bit_length.cpp -type C++
+solution file add ~/Desktop/cse237c-final-project/Catapult/src/huffman_truncate_tree.cpp -type C++
+solution file add ~/Desktop/cse237c-final-project/Catapult/src/huffman_canonize_tree.cpp -type C++
+solution file add ~/Desktop/cse237c-final-project/Catapult/src/huffman_create_codeword.cpp -type C++
 directive set -DESIGN_GOAL latency
 directive set -SPECULATE true
 directive set -MERGEABLE true
