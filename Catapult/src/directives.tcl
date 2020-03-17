@@ -16,7 +16,6 @@
 //  
 solution new -state initial
 solution options defaults
-solution options set /Input/CppStandard c++11
 solution file add /home/ubuntu/catapult_huffman_encoding/src/huffman_encoding.cpp -type C++
 solution file add /home/ubuntu/catapult_huffman_encoding/src/huffman_filter.cpp -type C++
 solution file add /home/ubuntu/catapult_huffman_encoding/src/huffman_sort.cpp -type C++
@@ -76,24 +75,3 @@ solution library add Xilinx_FIFO
 go libraries
 directive set -CLOCKS {clk {-CLOCK_PERIOD 10.0 -CLOCK_EDGE rising -CLOCK_UNCERTAINTY 0.0 -CLOCK_HIGH_TIME 5.0 -RESET_SYNC_NAME rst -RESET_ASYNC_NAME arst_n -RESET_KIND sync -RESET_SYNC_ACTIVE high -RESET_ASYNC_ACTIVE low -ENABLE_ACTIVE high}}
 go assembly
-
-// %1 : copy0
-// %2 : copy1 
-// %3 : computehistogram
-// %4 : computehistogram partition
-// %5 : resort
-// %6 : process symbols
-// %7 : move nodes
-// %8 : create codeword
-// %9 : cyclic
-
-set c 256
-directive set /huffman_encoding/core/radix_sort -UNROLL %1
-directive set /huffman_encoding/core/loop2 -ITERATIONS $c
-directive set /huffman_encoding/core/loop2 -UNROLL %2
-directive set /huffman_encoding/core/loop3 -ITERATIONS %0
-directive set /huffman_encoding/core/loop3 -UNROLL %3
-directive set /huffman_encoding/core/loop6 -UNROLL %4
-directive set /huffman_encoding/in:rsc %9 %5
-directive set /huffman_encoding/out:rsc %9 %5
-go extract
