@@ -9,24 +9,22 @@ import xml.etree.ElementTree as ET
 # ***************************************************************************
 # Knobs
 # ***********
-copy0=[1,2,4,8]
-copy1=[1,2,4,8]
-computehistogram=[1,2,4]
-computehistogram_partition=[1,2,4]
-resort=[1,2]
-processsymbols=[1,2]
-movenodes=[1,2]
-assigncodeword=[1,2]
+copy0=[1,4,16]
+copy1=[1,4,16]
+processsymbols=[1,2,4]
+createtree=[1,2,4]
+createtree_partition=[1,2,4]
+assigncodeword=[1,2,4]
+assigncodeword_partition=[1,2,4]
 
 allCombinations = list(itertools.product(
     copy0,
     copy1,
-    computehistogram,
-    computehistogram_partition,
-    resort,
     processsymbols,
-    movenodes,
-    assigncodeword))
+    createtree,
+    createtree_partition,
+    assigncodeword,
+    assigncodeword_partition))
 # ***************************************************************************
 
 

@@ -124,7 +124,7 @@ allCombinations = list(itertools.product(
     createtree,
     createtree_partition,
     assigncodeword,
-    createtree_partition,))
+    assigncodeword_partition))
 
 # ***************************************************************************
 
