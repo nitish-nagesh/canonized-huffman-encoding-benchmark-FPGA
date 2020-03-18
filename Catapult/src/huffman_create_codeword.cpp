@@ -6,7 +6,7 @@
 void reverse_codeword(Codeword &input) {
 	int i;
     Codeword rev = 0;
-	reverse: for (i = 0; i < M; i++) {
+	reverse: for (i = 0; i < CODEWORD_LENGTH_BITS; i++) {
 		rev = (rev << 1) | (input & 1);
 		input = input >> 1;
 	}
