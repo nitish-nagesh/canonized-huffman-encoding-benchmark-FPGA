@@ -8,7 +8,7 @@ add_files -tb {huffman.random256.txt huffman.random256.golden}
 
 # Solution
 open_solution -reset "solutionx"
-set_part {xcvu9pflga-2104-1-e} -tool vivado
+set_part {xcvu9p-flga-2104-1-e} -tool vivado
 create_clock -period 10
 csim_design
 csynth_design
