@@ -6,7 +6,7 @@ add_files -tb {huffman.random256.txt huffman.random256.golden}
 set_top huffman_encoding
 #set_top create_tree
 open_solution solution -reset
-set_part {xcvu9p-flga-2104-1-e} -tool vivado
+set_part {xcvu9p-flga2104-1-e} -tool vivado
 create_clock -period 10
 #csim_design -compiler clang
 #csynth_design
