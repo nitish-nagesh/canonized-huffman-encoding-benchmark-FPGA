@@ -20,7 +20,7 @@ const static int TREE_DEPTH_BITS = 6;
 const static int CODEWORD_LENGTH_BITS = 5;
 
 // A marker for internal nodes
-const static unsigned int INTERNAL_NODE = -1;
+const static int INTERNAL_NODE = -1;
 
 typedef unsigned int Codeword;
 typedef unsigned int PackedCodewordAndLength;

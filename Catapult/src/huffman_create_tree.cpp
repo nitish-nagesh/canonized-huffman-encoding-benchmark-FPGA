@@ -3,9 +3,9 @@
 void create_tree (
     /* input */ Symbol in[INPUT_SYMBOL_SIZE],
     /* input */ int num_symbols,
-    /* output */ unsigned int parent[INPUT_SYMBOL_SIZE-1],
-    /* output */ unsigned int left[INPUT_SYMBOL_SIZE-1],
-    /* output */ unsigned int right[INPUT_SYMBOL_SIZE-1]) {
+    /* output */ int parent[INPUT_SYMBOL_SIZE-1],
+    /* output */ int left[INPUT_SYMBOL_SIZE-1],
+    /* output */ int right[INPUT_SYMBOL_SIZE-1]) {
     Frequency frequency[INPUT_SYMBOL_SIZE-1] = {0};
     unsigned int tree_count = 0;  // Number of intermediate nodes assigned a parent.
     unsigned int in_count = 0;    // Number of inputs consumed.

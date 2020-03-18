@@ -13,9 +13,9 @@ void huffman_encoding(
     Symbol sorted[INPUT_SYMBOL_SIZE];
     Symbol sorted_copy1[INPUT_SYMBOL_SIZE];
     Symbol sorted_copy2[INPUT_SYMBOL_SIZE];
-    unsigned int parent[INPUT_SYMBOL_SIZE-1];
-    unsigned int left[INPUT_SYMBOL_SIZE-1];
-    unsigned int right[INPUT_SYMBOL_SIZE-1];
+    int parent[INPUT_SYMBOL_SIZE-1];
+    int left[INPUT_SYMBOL_SIZE-1];
+    int right[INPUT_SYMBOL_SIZE-1];
     int n;
 
     filter(symbol_histogram, filtered, &n);

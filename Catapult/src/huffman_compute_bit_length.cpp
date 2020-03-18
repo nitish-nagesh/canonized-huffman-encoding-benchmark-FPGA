@@ -1,9 +1,9 @@
 #include "huffman.h"
 #include "assert.h"
 void compute_bit_length (
-    /* input */ unsigned int parent[INPUT_SYMBOL_SIZE-1],
-    /* input */ unsigned int left[INPUT_SYMBOL_SIZE-1],
-    /* input */ unsigned int right[INPUT_SYMBOL_SIZE-1],
+    /* input */ int parent[INPUT_SYMBOL_SIZE-1],
+    /* input */ int left[INPUT_SYMBOL_SIZE-1],
+    /* input */ int right[INPUT_SYMBOL_SIZE-1],
     /* input */ int num_symbols,
     /* output */ unsigned int length_histogram[TREE_DEPTH]) {
     assert(num_symbols > 0);
