@@ -10,8 +10,8 @@ void create_tree (
     int tree_count = 0;  // Number of intermediate nodes assigned a parent.
     int in_count = 0;    // Number of inputs consumed.
 
-    assert(num_symbols > 0);
-    assert(num_symbols <= INPUT_SYMBOL_SIZE);
+    // assert(num_symbols > 0);
+    // assert(num_symbols <= INPUT_SYMBOL_SIZE);
     #pragma hls_pipeline_init_interval 5
     create_tree_main: for(int i = 0; i < (num_symbols-1); i++) {
 

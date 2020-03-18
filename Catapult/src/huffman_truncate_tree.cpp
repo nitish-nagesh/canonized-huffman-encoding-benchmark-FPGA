@@ -38,8 +38,8 @@ void truncate_tree(
     int limit = 1;
  copy_output: for(int i = 0; i < TREE_DEPTH; i++) {
         output_length_histogram2[i] = output_length_histogram1[i];
-        assert(output_length_histogram1[i] >= 0);
-        assert(output_length_histogram1[i] <= limit);
+        // assert(output_length_histogram1[i] >= 0);
+        // assert(output_length_histogram1[i] <= limit);
         limit *= 2;
     }
 }

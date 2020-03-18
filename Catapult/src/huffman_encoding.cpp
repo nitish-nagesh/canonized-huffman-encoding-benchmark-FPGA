@@ -34,7 +34,7 @@ void huffman_encoding(
         sorted_copy2[i].value = sorted[i].value;
         sorted_copy2[i].frequency = sorted[i].frequency;
         // std::cout << sorted[i].value << " " << sorted[i].frequency << "\n";
-        assert(previous_frequency <= (int)sorted[i].frequency);
+        // assert(previous_frequency <= (int)sorted[i].frequency);
         previous_frequency = sorted[i].frequency;
     }
 

@@ -14,8 +14,8 @@ void sort(
 //#pragma HLS ARRAY_PARTITION variable=digit_histogram complete dim=1
     Digit current_digit[INPUT_SYMBOL_SIZE];
 
-    assert(num_symbols >= 0);
-    assert(num_symbols <= INPUT_SYMBOL_SIZE);
+    // assert(num_symbols >= 0);
+    // assert(num_symbols <= INPUT_SYMBOL_SIZE);
     #pragma hls_pipeline_init_interval 1
     copy_in_to_sorting: for(int j = 0; j < num_symbols; j++) {
         sorting[j] = in[j];

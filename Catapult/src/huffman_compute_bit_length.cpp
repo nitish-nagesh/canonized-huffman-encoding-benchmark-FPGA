@@ -6,8 +6,8 @@ void compute_bit_length (
     /* input */ int right[INPUT_SYMBOL_SIZE-1],
     /* input */ int num_symbols,
     /* output */ int length_histogram[TREE_DEPTH]) {
-    assert(num_symbols > 0);
-    assert(num_symbols <= INPUT_SYMBOL_SIZE);
+    // assert(num_symbols > 0);
+    // assert(num_symbols <= INPUT_SYMBOL_SIZE);
     int child_depth[INPUT_SYMBOL_SIZE-1];
     int internal_length_histogram[TREE_DEPTH];
 
