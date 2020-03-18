@@ -13,17 +13,17 @@ void huffman_encoding(
     Symbol sorted[INPUT_SYMBOL_SIZE];
     Symbol sorted_copy1[INPUT_SYMBOL_SIZE];
     Symbol sorted_copy2[INPUT_SYMBOL_SIZE];
-    ac_int<SYMBOL_BITS, false> parent[INPUT_SYMBOL_SIZE-1];
-    ac_int<SYMBOL_BITS, false> left[INPUT_SYMBOL_SIZE-1];
-    ac_int<SYMBOL_BITS, false> right[INPUT_SYMBOL_SIZE-1];
+    unsigned int parent[INPUT_SYMBOL_SIZE-1];
+    unsigned int left[INPUT_SYMBOL_SIZE-1];
+    unsigned int right[INPUT_SYMBOL_SIZE-1];
     int n;
 
     filter(symbol_histogram, filtered, &n);
     sort(filtered, n, sorted);
 
-    ac_int<SYMBOL_BITS, false> length_histogram[TREE_DEPTH];
-    ac_int<SYMBOL_BITS, false> truncated_length_histogram1[TREE_DEPTH];
-    ac_int<SYMBOL_BITS, false> truncated_length_histogram2[TREE_DEPTH];
+    unsigned int length_histogram[TREE_DEPTH];
+    unsigned int truncated_length_histogram1[TREE_DEPTH];
+    unsigned int truncated_length_histogram2[TREE_DEPTH];
     CodewordLength symbol_bits[INPUT_SYMBOL_SIZE];
 
     int previous_frequency = -1;

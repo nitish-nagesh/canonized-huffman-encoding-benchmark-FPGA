@@ -2,8 +2,8 @@
 #include "assert.h"
 void canonize_tree(
     /* input */ Symbol sorted[INPUT_SYMBOL_SIZE],
-    /* input */ ac_int<SYMBOL_BITS, false> num_symbols,
-    /* input */ ac_int<SYMBOL_BITS, false> codeword_length_histogram[TREE_DEPTH],
+    /* input */ unsigned int num_symbols,
+    /* input */ unsigned int codeword_length_histogram[TREE_DEPTH],
     /* output */ CodewordLength symbol_bits[INPUT_SYMBOL_SIZE] ) {
     assert(num_symbols <= INPUT_SYMBOL_SIZE);
 
@@ -11,8 +11,8 @@ void canonize_tree(
         symbol_bits[i] = 0;
     }
     
-    ac_int<SYMBOL_BITS, false> length = TREE_DEPTH;
-    ac_int<SYMBOL_BITS, false> count = 0;
+    unsigned int length = TREE_DEPTH;
+    unsigned int count = 0;
 
     // Iterate across the symbols from lowest frequency to highest
     // Assign them largest bit length to smallest

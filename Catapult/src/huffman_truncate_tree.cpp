@@ -1,9 +1,9 @@
 #include "huffman.h"
 #include "assert.h"
 void truncate_tree(
-    /* input */ ac_int<SYMBOL_BITS, false> input_length_histogram[TREE_DEPTH],
-    /* output */ ac_int<SYMBOL_BITS, false> output_length_histogram1[TREE_DEPTH],
-    /* output */ ac_int<SYMBOL_BITS, false> output_length_histogram2[TREE_DEPTH]
+    /* input */ unsigned int input_length_histogram[TREE_DEPTH],
+    /* output */ unsigned int output_length_histogram1[TREE_DEPTH],
+    /* output */ unsigned int output_length_histogram2[TREE_DEPTH]
 ) {
     // Copy into temporary storage to maintain dataflow properties
     copy_input:for(int i = 0; i < TREE_DEPTH; i++) {
@@ -11,7 +11,7 @@ void truncate_tree(
         output_length_histogram1[i] = input_length_histogram[i];
     }
 
-    ac_int<SYMBOL_BITS, false> j = MAX_CODEWORD_LENGTH;
+    unsigned int j = MAX_CODEWORD_LENGTH;
     move_nodes: for(int i = TREE_DEPTH - 1; i > MAX_CODEWORD_LENGTH; i--) {
         // Look to see if there is any nodes at lengths greater than target depth
     reorder: while(output_length_histogram1[i] != 0) {
