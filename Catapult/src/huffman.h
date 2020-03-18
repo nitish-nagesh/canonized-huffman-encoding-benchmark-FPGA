@@ -24,7 +24,7 @@ const static unsigned int INTERNAL_NODE = -1;
 
 typedef unsigned int Codeword;
 typedef unsigned int PackedCodewordAndLength;
-typedef unsigned intCodewordLength;
+typedef unsigned int CodewordLength;
 typedef unsigned int Frequency;
 
 struct Symbol {
