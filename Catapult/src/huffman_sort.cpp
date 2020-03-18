@@ -1,15 +1,15 @@
 #include "huffman.h"
 #include "assert.h"
-const int RADIX = 16;
-const int BITS_PER_LOOP = 4; // should be log2(RADIX)
-typedef int Digit;
+const unsigned int RADIX = 16;
+const unsigned int BITS_PER_LOOP = 4; // should be log2(RADIX)
+typedef ac_int<BITS_PER_LOOP, false> Digit;
 
 void sort(
     /* input */ Symbol in[INPUT_SYMBOL_SIZE],
     /* input */ int num_symbols,
     /* output */ Symbol out[INPUT_SYMBOL_SIZE]) {
     Symbol previous_sorting[INPUT_SYMBOL_SIZE], sorting[INPUT_SYMBOL_SIZE];
-    int digit_histogram[RADIX], digit_location[RADIX];
+    ac_int<SYMBOL_BITS, false> digit_histogram[RADIX], digit_location[RADIX];
 //#pragma HLS ARRAY_PARTITION variable=digit_location complete dim=1
 //#pragma HLS ARRAY_PARTITION variable=digit_histogram complete dim=1
     Digit current_digit[INPUT_SYMBOL_SIZE];
