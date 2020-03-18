@@ -1,5 +1,6 @@
 #include <ac_int.h>
 #include "huffman_params.h"
+#include <ac_math.h>
 
 // input number of symbols
 const static int INPUT_SYMBOL_SIZE = 256;
