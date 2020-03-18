@@ -6,7 +6,7 @@
 void reverse_codeword(Codeword &input) {
 	int i;
     Codeword rev = 0;
-	reverse: for (i = 0; i < M; i++) {
+	reverse: for (i = 0; i < CODEWORD_LENGTH_BITS; i++) {
 		rev = (rev << 1) | (input & 1);
 		input = input >> 1;
 	}
@@ -15,7 +15,7 @@ void reverse_codeword(Codeword &input) {
 
 void create_codeword(
   /* input */ CodewordLength symbol_bits[INPUT_SYMBOL_SIZE],
-  /* input */ unsigned int codeword_length_histogram[TREE_DEPTH],
+  /* input */ int codeword_length_histogram[TREE_DEPTH],
   /* output */ PackedCodewordAndLength encoding[INPUT_SYMBOL_SIZE]
 ) {
     Codeword first_codeword[MAX_CODEWORD_LENGTH];

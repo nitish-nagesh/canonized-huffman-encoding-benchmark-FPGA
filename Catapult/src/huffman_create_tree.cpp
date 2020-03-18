@@ -7,11 +7,11 @@ void create_tree (
     /* output */ int left[INPUT_SYMBOL_SIZE-1],
     /* output */ int right[INPUT_SYMBOL_SIZE-1]) {
     Frequency frequency[INPUT_SYMBOL_SIZE-1] = {0};
-    unsigned int tree_count = 0;  // Number of intermediate nodes assigned a parent.
-    unsigned int in_count = 0;    // Number of inputs consumed.
+    int tree_count = 0;  // Number of intermediate nodes assigned a parent.
+    int in_count = 0;    // Number of inputs consumed.
 
-    assert(num_symbols > 0);
-    assert(num_symbols <= INPUT_SYMBOL_SIZE);
+    // assert(num_symbols > 0);
+    // assert(num_symbols <= INPUT_SYMBOL_SIZE);
     #pragma hls_pipeline_init_interval 5
     create_tree_main: for(int i = 0; i < (num_symbols-1); i++) {
 
@@ -21,7 +21,7 @@ void create_tree (
         // Case 1: remove a Symbol from in[]
         // Case 2: remove an element from intermediate[]
         // We do this twice, once for the left and once for the right of the new intermediate node.
-        assert(in_count < num_symbols || tree_count < i);
+        // assert(in_count < num_symbols || tree_count < i);
         Frequency intermediate_freq = frequency[tree_count];
         Symbol s = in[in_count];
         if((in_count < num_symbols && s.frequency <= intermediate_freq) || tree_count == i) {
@@ -37,7 +37,7 @@ void create_tree (
             tree_count++; // Go to next parentless internal node
         }
 
-        assert(in_count < num_symbols || tree_count < i);
+        // assert(in_count < num_symbols || tree_count < i);
         intermediate_freq = frequency[tree_count];
         s = in[in_count];
         if((in_count < num_symbols && s.frequency <= intermediate_freq) || tree_count == i) {
@@ -53,7 +53,7 @@ void create_tree (
             tree_count++;
         }
         // Verify that nodes in the tree are sorted by frequency
-        assert(i == 0 || frequency[i] >= frequency[i-1]);
+        // assert(i == 0 || frequency[i] >= frequency[i-1]);
     }
 
     parent[tree_count] = 0; //Set parent of last node (root) to 0

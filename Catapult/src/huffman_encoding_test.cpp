@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void file_to_array(const char *filename, unsigned int *&array, int array_length) {
+void file_to_array(const char *filename, int *&array, int array_length) {
     printf("Start reading file [%s]\n", filename);
     FILE *file = fopen(filename, "r");
     if(file == NULL) {
@@ -12,13 +12,13 @@ void file_to_array(const char *filename, unsigned int *&array, int array_length)
 
     int     file_value = 0;
     int     count = 0;
-    array = (unsigned int *) malloc(array_length*sizeof(unsigned int));
+    array = (int *) malloc(array_length*sizeof(int));
 
     while(1) {
         int eof_check = fscanf(file, "%x", &file_value);
         if(eof_check == EOF) break;
         else {
-            array[count++] = (unsigned int) file_value ;
+            array[count++] = (int) file_value ;
         }
     }
     fclose(file);
@@ -30,7 +30,7 @@ int main() {
     printf("Starting canonical Huffman encoding testbench\n");
     FILE *output_file;
     int return_val = 0;
-    unsigned int *frequencies = NULL;
+    int *frequencies = NULL;
     file_to_array("huffman.random256.txt", frequencies, INPUT_SYMBOL_SIZE);
 
     Symbol in[INPUT_SYMBOL_SIZE];
@@ -45,7 +45,7 @@ int main() {
 
     output_file = fopen("huffman.random256.out", "w");
     for(int i = 0; i < INPUT_SYMBOL_SIZE; i++)
-        fprintf(output_file, "%d, %x\n", i, (unsigned int) encoding[i]);
+        fprintf(output_file, "%d, %x\n", i, (int) encoding[i]);
     fclose(output_file);
 
     printf ("\n***************Comparing against output data*************** \n\n");
