@@ -7,8 +7,8 @@ void create_tree (
     /* output */ int left[INPUT_SYMBOL_SIZE-1],
     /* output */ int right[INPUT_SYMBOL_SIZE-1]) {
     Frequency frequency[INPUT_SYMBOL_SIZE-1] = {0};
-    unsigned int tree_count = 0;  // Number of intermediate nodes assigned a parent.
-    unsigned int in_count = 0;    // Number of inputs consumed.
+    int tree_count = 0;  // Number of intermediate nodes assigned a parent.
+    int in_count = 0;    // Number of inputs consumed.
 
     assert(num_symbols > 0);
     assert(num_symbols <= INPUT_SYMBOL_SIZE);

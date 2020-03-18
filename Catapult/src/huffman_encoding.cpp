@@ -21,9 +21,9 @@ void huffman_encoding(
     filter(symbol_histogram, filtered, &n);
     sort(filtered, n, sorted);
 
-    unsigned int length_histogram[TREE_DEPTH];
-    unsigned int truncated_length_histogram1[TREE_DEPTH];
-    unsigned int truncated_length_histogram2[TREE_DEPTH];
+    int length_histogram[TREE_DEPTH];
+    int truncated_length_histogram1[TREE_DEPTH];
+    int truncated_length_histogram2[TREE_DEPTH];
     CodewordLength symbol_bits[INPUT_SYMBOL_SIZE];
 
     int previous_frequency = -1;

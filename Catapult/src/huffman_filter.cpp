@@ -6,7 +6,7 @@ void filter(
             /* output */ Symbol out[INPUT_SYMBOL_SIZE],
             /* output */ int *n) {
     //#pragma HLS INLINE off
-    unsigned int j = 0;
+    int j = 0;
     #pragma hls_pipeline_init_interval 1
     filter_main: for(int i = 0; i < INPUT_SYMBOL_SIZE; i++) {
         if(in[i].frequency != 0) {
