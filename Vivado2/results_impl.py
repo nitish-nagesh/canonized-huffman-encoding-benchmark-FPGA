@@ -64,24 +64,9 @@ def parse_xml(filename1,filename2):
 
 
 
-def removeCombinations(combs):
-
-    finalList = []
-
-    for c in combs:
-        copyit = True
-        if c[5]>c[0]: 
-            copyit =False
-
-        if copyit:
-            finalList.append(c)
-
-    return finalList
-
-
 def main():
 
-    finalCombinations = removeCombinations(allCombinations)
+    finalCombinations = allCombinations
     file1=open('final_result_impl_huffman.csv','w')
     file1.write("copy0"+","+"copy1"+","+"computehistogram"+","+"computehistogram_partition"+","+"resort"+","+"processsymbols"+","+"movenodes"+","+"assigncodeword"+","+"obj1"+","+"obj2\n")
     for d in sorted(glob.glob('script/impl_reports/huffman_encoding_export*.xml')):

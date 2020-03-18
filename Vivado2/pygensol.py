@@ -121,27 +121,12 @@ allCombinations = list(itertools.product(
     copy0,
     copy1,
     processsymbols,
-    processsymbols_partition,
     createtree,
-    assigncodeword))
+    createtree_partition,
+    assigncodeword,
+    createtree_partition,))
 
 # ***************************************************************************
-
-
-def removeCombinations(combs):
-
-    finalList = []
-
-    for c in combs:
-        copyit = True
-	
-        if c[5]>(c[0]): 
-            copyit =False
-        if copyit:
-            finalList.append(c)
-
-    return finalList
-
 
 
 
@@ -177,7 +162,7 @@ def main():
 
 
     # Create combinations of knobs
-    finalCombinations = removeCombinations(allCombinations)
+    finalCombinations = allCombinations
 
     print("Num combinations: " + str(len(finalCombinations)))
     print("vs " + str(len(allCombinations)))
