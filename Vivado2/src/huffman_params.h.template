@@ -1,0 +1,15 @@
+#ifndef PARAMS_H_
+#define PARAMS_H_
+
+#define PRAGMA_SUB(x) _Pragma (#x)
+#define PRAGMA_HLS(x) PRAGMA_SUB(x)
+
+#define copy0 %1
+#define copy1 %2
+#define processsymbols %3
+#define createtree %4
+#define createtree_partition %5
+#define assigncodeword %6
+#define assigncodeword_partition %7
+
+#endif
