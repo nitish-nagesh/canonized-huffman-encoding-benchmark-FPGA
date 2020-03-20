@@ -14,12 +14,12 @@ void truncate_tree(
     ac_int<SYMBOL_BITS, false> j = MAX_CODEWORD_LENGTH;
     move_nodes: for(int i = TREE_DEPTH - 1; i > MAX_CODEWORD_LENGTH; i--) {
         // Look to see if there is any nodes at lengths greater than target depth
-    reorder: while(output_length_histogram1[i] != 0) {
+        reorder: while(output_length_histogram1[i] != 0) {
             if (j == MAX_CODEWORD_LENGTH) {
                 // Find deepest leaf with codeword length < target depth
                 do {
                     j--;
-                } while(output_length_histogram1[j] == 0);
+                } while(output_length_histogram1[j] == 0)
             }
 
             // Move leaf with depth i to depth j+1.
