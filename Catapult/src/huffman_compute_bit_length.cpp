@@ -21,7 +21,6 @@ void compute_bit_length (
 
     #pragma hls_pipeline_init_interval 3
     traverse_tree: for(int i = num_symbols-3; i >= 0; i--) {
-
         int length = child_depth[parent[i]] + 1;
         child_depth[i] = length;
         if(left[i] != INTERNAL_NODE || right[i] != INTERNAL_NODE){
