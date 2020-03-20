@@ -19,7 +19,7 @@ void truncate_tree(
                 // Find deepest leaf with codeword length < target depth
                 do {
                     j--;
-                } while(output_length_histogram1[j] == 0)
+                } while(output_length_histogram1[j] == 0);
             }
 
             // Move leaf with depth i to depth j+1.

@@ -19,12 +19,11 @@ void canonize_tree(
     process_symbols: for(int k = 0; k < num_symbols; k++) {
         if (count == 0) {
             //find the next non-zero bit length
-            for(int a = 0; a < TREE_DEPTH; a++) {
+            do {
                 length--;
                 // n is the number of symbols with encoded length i
                 count = codeword_length_histogram[length];
-                if(count != 0) { break; }
-            }
+            } while(count == 0);
         }
         symbol_bits[sorted[k].value] = length; //assign symbol k to have length bits
         count--; //keep assigning i bits until we have counted off n symbols
