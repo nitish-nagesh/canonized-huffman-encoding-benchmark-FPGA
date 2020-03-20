@@ -37,7 +37,7 @@ struct Symbol {
 void huffman_encoding (
 	Symbol in[INPUT_SYMBOL_SIZE],
 	PackedCodewordAndLength encoding[INPUT_SYMBOL_SIZE],
-	ac_int<32, false> *num_nonzero_symbols
+	int *num_nonzero_symbols
 );
 
 

@@ -34,7 +34,7 @@ int main() {
     file_to_array("huffman.random256.txt", frequencies, INPUT_SYMBOL_SIZE);
 
     Symbol in[INPUT_SYMBOL_SIZE];
-    for (int i = 0 ; i <  INPUT_SYMBOL_SIZE; i++) {
+    for (unsigned int i = 0 ; i <  INPUT_SYMBOL_SIZE; i++) {
         in[i].frequency = frequencies[i];
         in[i].value = i;
     }

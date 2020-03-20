@@ -1,4 +1,4 @@
-copy0,copy1,computehistogram,computehistogram_partition,resort,processsymbols,movenodes,assigncodeword,obj1,obj2
+design,copy0,copy1,computehistogram,computehistogram_partition,resort,processsymbols,movenodes,assigncodeword,obj1,obj2
 0000,1,1,1,1,1,1,1,1,36.102,745
 0001,1,1,1,1,1,1,1,2,36.220,809
 0002,1,1,1,1,1,1,2,1,36.497,789

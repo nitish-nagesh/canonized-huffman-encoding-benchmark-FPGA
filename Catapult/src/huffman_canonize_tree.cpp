@@ -23,8 +23,7 @@ void canonize_tree(
                 length--;
                 // n is the number of symbols with encoded length i
                 count = codeword_length_histogram[length];
-            }
-            while (count == 0);
+            } while(count == 0);
         }
         symbol_bits[sorted[k].value] = length; //assign symbol k to have length bits
         count--; //keep assigning i bits until we have counted off n symbols
