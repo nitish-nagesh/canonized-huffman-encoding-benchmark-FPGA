@@ -73,7 +73,7 @@ def main():
         synth_path=os.path.join('script/syn_reports/csynth'+num+'.xml')
         slices,lat=parse_xml(d,synth_path)
         file1.write(num+",")
-        for j in range(8):
+        for j in range(7):
             file1.write(str(finalCombinations[int(num)][j])+",")
         file1.write(str(lat)+","+str(slices)+"\n")
 
