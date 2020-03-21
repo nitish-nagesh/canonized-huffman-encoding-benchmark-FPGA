@@ -1,20 +1,20 @@
 #include "huffman.h"
 #include "assert.h"
 void truncate_tree(
-    /* input */ int input_length_histogram[TREE_DEPTH],
-    /* output */ int output_length_histogram1[TREE_DEPTH],
-    /* output */ int output_length_histogram2[TREE_DEPTH]
+    /* input */ ac_int<SYMBOL_BITS, false> input_length_histogram[TREE_DEPTH],
+    /* output */ ac_int<SYMBOL_BITS, false> output_length_histogram1[TREE_DEPTH],
+    /* output */ ac_int<SYMBOL_BITS, false> output_length_histogram2[TREE_DEPTH]
 ) {
     // Copy into temporary storage to maintain dataflow properties
-    copy_input:for(int i = 0; i < TREE_DEPTH; i++) {
+    copy_input: for(int i = 0; i < TREE_DEPTH; i++) {
 
         output_length_histogram1[i] = input_length_histogram[i];
     }
 
-    int j = MAX_CODEWORD_LENGTH;
+    ac_int<SYMBOL_BITS, false> j = MAX_CODEWORD_LENGTH;
     move_nodes: for(int i = TREE_DEPTH - 1; i > MAX_CODEWORD_LENGTH; i--) {
         // Look to see if there is any nodes at lengths greater than target depth
-    reorder: while(output_length_histogram1[i] != 0) {
+        reorder: while(output_length_histogram1[i] != 0) {
             if (j == MAX_CODEWORD_LENGTH) {
                 // Find deepest leaf with codeword length < target depth
                 do {

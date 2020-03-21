@@ -16,6 +16,7 @@
 //  
 solution new -state initial
 solution options defaults
+solution options set /Input/CppStandard c++11
 solution file add /home/john/Desktop/cse237c-final-project/Catapult/src/huffman_encoding_test.cpp -type C++
 solution file add /home/john/Desktop/cse237c-final-project/Catapult/src/huffman_encoding.cpp -type C++
 solution file add /home/john/Desktop/cse237c-final-project/Catapult/src/huffman_filter.cpp -type C++
