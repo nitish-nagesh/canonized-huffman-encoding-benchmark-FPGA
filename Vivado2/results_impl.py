@@ -66,7 +66,7 @@ def main():
 
     finalCombinations = allCombinations
     file1=open('final_result_impl_huffman.csv','w')
-    file1.write("copy0"+","+"copy1"+","+"processsymbols"+","+"createtree"+","+"createtree_partition"+","+"assigncodeword"+","+"assigncodeword_partition"+","+","+"obj1"+","+"obj2\n")
+    file1.write("copy0"+","+"copy1"+","+"processsymbols"+","+"createtree"+","+"createtree_partition"+","+"assigncodeword"+","+"assigncodeword_partition"+","+"obj1"+","+"obj2\n")
     for d in sorted(glob.glob('script/impl_reports/huffman_encoding_export*.xml')):
         m = re.search('huffman_encoding_export(\d+)', d)
         num = m.group(1)
