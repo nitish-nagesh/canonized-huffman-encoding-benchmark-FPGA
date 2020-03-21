@@ -6,7 +6,7 @@ Huffman Encoding is a commonly used data compression algorithm used notably in g
 ## Usage
 - `src` contains the base source code for the host and device.
 - `scripts` contains the high-level scripts to generate designs, synthesize them, and generate an output table.
-- `solution` is where the results of synthesis for each design is generated.
+
 
 ## Algorithm
 The Huffman encoding algorithm is executed in 7 stages:
@@ -37,19 +37,31 @@ output <- (encoding, canonized_length_histogram)
 ## Knobs
 Due to the complex nature of the algorithm which includes many loops and internal arrays, the number of potential knobs is quite large and would produce a design space too large to synthesize in a reasonable time. For this reason we create two different design spaces in order to reduce the potential design space.
 
+The knobs we utilized in both designs utilize loop unrolling of various loops and array partitioning of arrays accessed in the loop. Due to the limitations on design space size all arrays accessed within a loop are partitioned together, with the copy loops taking higher priority as these knobs have more granularity. 
+
 ### Design 1
 This design is formed around identifying key loops where unrolling and array partitioning would be expected to achieve a linear increase in speedup at the cost of some area. Beyond those obvious loops knobs were created to maximize coverage of potential loops, with a slight focus on loops with higher total latency.
 
-- `copy0`: Unroll factor and cyclic array partitioning factor for all loops that initialize all values of a array to 0.
-- `copy1`: Unroll factor and cyclic array partitioning factor for all loops that copy all values of one array into another.
+- `copy0`: Unroll factor and array partitioning factor for all loops that initialize all values of a array to 0.
+- `copy1`: Unroll factor and array partitioning factor for all loops that copy all values of one array into another.
 - `computehistogram`: Unroll factor of the compute_histogram loop in sorting.
-- `computehistogram_partition`:  Cyclic array partitioning factor of the compute_histogram loop in sorting.
-- `resort`: Unroll factor and cyclic array partitioning factor for the re_sort loop in sorting.
-- `processsymbols`: Unroll factor and cyclic array partitioning factor for the process_symbol loop in canonize_tree.
-- `movenodes`: Unroll factor and cyclic array partitioning factor for the move_nodes loop in truncate_tree. 
-- `assigncodeword`: Unroll factor and cyclic array partitioning factor for the assign_codeword loop in create_codeword.
+- `computehistogram_partition`: Array partitioning factor of the compute_histogram loop in sorting.
+- `resort`: Unroll factor and array partitioning factor for the re_sort loop in sorting.
+- `processsymbols`: Unroll factor and array partitioning factor for the process_symbol loop in canonize_tree.
+- `movenodes`: Unroll factor and array partitioning factor for the move_nodes loop in truncate_tree. 
+- `assigncodeword`: Unroll factor and array partitioning factor for the assign_codeword loop in create_codeword.
 
 We expect that due to their their simplicity, increasing `copy0` and `copy1` would linearly increase the performance for the loop provided that the array was partitioned to match. For this reason we kept the value of the unroll and partition factor the same for each design. `compute_histogram` is another loop that, because it accesses its arrays sequentially, would also benefit linearly from loop unrolling and partitioning. The unroll factor and array partition are separate due to the additional complexity of the loop making it unclear whether the array partition factor should be equal to the unroll factor. For `resort`, `processsymbols`, `movenodes`, and `assigncodeword`, it is unclear whether unrolling and partitioning arrays would improve performance, as they all have non-constant and non-sequential array access. These loops were chosen as they were the loops that made up the largest portion of the runtime of the algorithm. It would be helpful to separate unroll factor and partition factor as separate knobs, but with this many loops in consideration the size of the design space would be too large to run in a reasonable timeframe.
 
 ### Design 2
-This design is a modification on the initial design and attempts to improve on some of the weaknesses of the initial design. The number of knobs is reduced and 
+This design is a modification on the initial design and attempts to improve on some of the weaknesses of the initial design. The number of knobs is reduced and even more focus is placed on the longest running loops in an attempt to generate output points with a wider range. 
+
+- `copy0`: Unroll factor and cyclic array partitioning factor for all loops that initialize all values of a array to 0.
+- `copy1`: Unroll factor and cyclic array partitioning factor for all loops that copy all values of one array into another.
+- `processsymbols`: Unroll factor for the process_symbol look in canonize_tree.
+- `createtree`: Unroll factor for the create_tree_main loop in create_tree.
+- `createtree_partition`: Array partition factor for the create_tree_main loop in create_tree.
+- `assigncodeword`: Unroll factor for the assign_codeword loop in create_codeword.
+- `assigncodeword_partition`: Array partition for the assign_codeword loop in create_codeword.
+
+Though these knobs look similar to those of the initial design space, there are several key differences between the two. We again expect to see a linear speedup for increasing values of `copy0` and `copy1`, but in this design space have increased the step size in an attempt to further show the differences between designs with different values. The remaining five knobs focus on the three longest-running loops in the algorithm and each have a separate knob for unroll factor and array partition in order to gain further insight into the factors that cause designs to differ. `processsymbols` notably does not have a corresponding partition knob, simply due to the fact that all arrays accessed in the loop are also partitioned in `copy1`.
